@@ -1,0 +1,32 @@
+# -*- coding: utf-8 -*-
+"""
+Spyder Editor
+
+This is a temporary script file.
+"""
+
+import matplotlib.pyplot as plt
+from matplotlib import cm
+import numpy as np
+import pandas as pd
+
+data = pd.read_csv('fo_travado_315.csv',delimiter=';')
+
+data = data.transpose()
+# agora cada coluna é um frame 
+
+
+#criando array das freq e do tempo
+ldata = len(data[0])
+freq = np.linspace (169e6,189e6,ldata)
+
+t = np.arange (1,1501,1)
+
+#print (len(data), len (freq)) 
+'''
+fig1 = plt.scatter(freq,data[0])
+plt.show()
+'''
+imax = data[0]
+
+print (imax)
