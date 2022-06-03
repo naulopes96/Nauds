@@ -5,25 +5,68 @@ Created on Thu Jun  2 08:46:42 2022
 @author: lluca
 """
 
-import pandas as pd
-import numpy as np
 import matplotlib.pyplot as plt
+from matplotlib import cm
+import numpy as np
+import pandas as pd
 
-#importante usar delimitador
-data = pd.read_csv('0L315.csv',delimiter=';')
+data = pd.read_csv('fo_travado_315.csv',delimiter=';')
+
+data = data.transpose()
+# agora cada coluna é um frame 
 
 
-# print (data.min())
-#freq = data['Freq']
-print (data)
-# print (806e6)
+#criando array das freq e do tempo
+ldata = len(data[0])
+freq = np.linspace (169e6,189e6,ldata)
+
+t = np.arange (1,1501,1)
+
+#print (len(data), len (freq)) 
+'''
+fig1 = plt.scatter(freq,data[0])
+plt.show()
+'''
+imax = []
+idxmax = []
+for i in range (0,len(data)):
+    maxx = data[i].max()
+    idx_imax = data[i].idxmax()
+    
+    imax.append(maxx)
+    idxmax.append(idx_imax)    
+    
+    #print (type(idx_imax))
 
 
-# x = np.arange(0,3398,1)
+#pegando as possições (como int) dos maximos 
+m =[]
 
-# plt.plot(x,freq,linewidth=0.3, color='black')
-# plt.xticks([0,600,1000,1500,2000,2500,3000],)
-# plt.xlabel('Tempo (s)')
-# plt.ylabel('Frequência (Hz)')
-# # plt.title('  Free Running N9310A at 10 MHz')
-# plt.show()
+for i in range (0,len(idxmax)):
+    n =[]
+
+    for x in idxmax[i]:
+        if x.isdigit():
+            n.append(x)
+    
+    m.append( ''.join(n))
+#    print (m)
+
+#print (m)
+        
+    
+for i in range (0,len(m)):
+    m[i]= int(m[i])
+
+#quanto q  o pico andou durante o espectograma
+
+fsum = 0.0
+
+for i in range (0,len(m)):
+    
+    fsum = fsum + abs(freq[m[i+1]]- freq[m[i]])
+    
+    #print (i,fsum)
+
+
+print (fsum)
