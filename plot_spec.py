@@ -30,7 +30,7 @@ for i in range (0,100):
         
         amp.append(data1[i][j])
 
-    ax.plot(freq,amp,t[i],s=2,c = amp)
+    ax.scatter(freq,amp,t[i],c=amp)
 plt.xlabel('freq')
 plt.ylabel('Amp (dB)')
 ax.set_zlabel('tempo (s)')
