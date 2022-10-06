@@ -24,20 +24,23 @@ m=[]
 
 
 for i in range (0,ldata):
-    s = (freq[i]-838e6)/838e6
+    s = (freq[i]-10e6)/10e6
     m.append(s)
     s=0
 
-var= (ldata-2)*[0]
+standev= (ldata-2)*[0]
 
 for i in range(2,len(freq)):
-     var[i-2]= st.variance(freq[:i])
+     standev[i-2]= st.stdev(m[:i])
 
-var = var**(0.5)
-x = np.arange (0,len(var),1)
+# standev = np.array(np.copy(var))**(0.5)
 
 
-plt.plot(x,var)
+
+x = np.arange (0,len(standev),1)
+
+
+plt.plot(x,standev)
 plt.style.use('default')
 plt.xscale("log")
 plt.yscale("log")
